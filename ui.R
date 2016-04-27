@@ -44,8 +44,8 @@ shinyUI(fluidPage(
       #tableOutput('countMatrix'),
       #tableOutput('designMatrix'),
       #tableOutput('fry'),
-      tableOutput("fryTable"),
-      tableOutput("nameOfChoice")
+      verbatimTextOutput("geneSetInput"),
+      tableOutput("fryTable")
     )
   )
 ))

@@ -1,4 +1,5 @@
 # server
+options(shiny.maxRequestSize=100*1024^2) 
 source("160418-geneset-fry.R")
 source("160414lmEffects.R")
 library(limma)
@@ -9,10 +10,11 @@ shinyServer(function(input,output,session) {
   
   updateSelectizeInput(session, "goSets", choices = goTerms, server = TRUE)
   
-  output$nameOfChoice = renderText({
-    names(goTerms[goTerms==input$goSets])
+  output$geneSetInput = renderText({
+    if (is.null(input$goSets)) return(NULL)
+    # names(goTerms[goTerms==input$goSets])
     print(input$goSets)
-    })
+  })
   
   output$countMatrix <- renderTable({
     inFile <- input$counts
@@ -26,17 +28,16 @@ shinyServer(function(input,output,session) {
     read.table(inFile$name)
   })
   
-  output$geneSetInput <- renderText({
-    if (is.null(input$goSets)) return(NULL)
-    print(paste(input$goSets))
-  })
-  
   output$fryTable <- renderTable({
     if (input$run == TRUE) {
-      print(input$counts)
+      gene.sets <- as.list(GO)[input$goSets]
+      gene.sets <- gene.sets[! sapply(gene.sets, is.null)]
+      # print(gene.sets)
+      # idx <- ids2indices(gene.sets, exprs.filt$genes$Entrez_Gene_ID)
       cnt <- read.table(input$counts$name)
-      dta <- read.table(input$design$name)
-      fry( cnt, design =dta, index = 1:5)
+      des <- read.table(input$design$name)
+      idx <- ids2indices(gene.sets, rownames(cnt))
+      fry( cnt, design =des, index = idx)
     }
   })
   
