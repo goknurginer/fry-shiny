@@ -5,14 +5,17 @@ library(limma)
 library(org.Hs.eg.db)
 library(GO.db)
 .matvec <- limma:::.matvec
-goterms <- Term(GOTERM)
-gosets <- as.vector(goterms)
 shinyServer(function(input,output,session) {
-  updateSelectizeInput(session, "foo", choices = as.vector(fooChoices), server = TRUE)
-  output$nameOfChoice = renderText(names(fooChoices[fooChoices==input$foo]))
+  
+  updateSelectizeInput(session, "goSets", choices = goTerms, server = TRUE)
+  
+  output$nameOfChoice = renderText({
+    names(goTerms[goTerms==input$goSets])
+    print(input$goSets)
+    })
+  
   output$countMatrix <- renderTable({
     inFile <- input$counts
-    #cat(file=stderr(), "drawing histogram with")
     if (is.null(inFile)) return(NULL)
     read.table(inFile$name)
   })
