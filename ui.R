@@ -1,5 +1,5 @@
 # ui
-# gosets <- as.vector(Term(GOTERM))
+# runApp("../GST_Tool/", display.mode = "showcase")
 keggsets <- paste("s", 1:100)
 shinyUI(fluidPage(
   
@@ -45,6 +45,7 @@ shinyUI(fluidPage(
       #tableOutput('designMatrix'),
       #tableOutput('fry'),
       verbatimTextOutput("geneSetInput"),
+      #verbatimTextOutput("nText")
       tableOutput("fryTable")
     )
   )
