@@ -1,3 +1,4 @@
-fooChoices<-c("Choice 1" = "Choice1",
-  "Choice 2" = "Choice2",
-  "Choice 3" = "Choice3")
+x <- Term(GOTERM)
+goTerms <- c(names(x))
+names(goTerms) <- x
+goNames <- as.vector(goTerms)
