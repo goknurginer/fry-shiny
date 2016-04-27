@@ -12,7 +12,7 @@ shinyUI(fluidPage(
       radioButtons("database", label = "3. Select a database",
         choices = list("GO", "KEGG")),
       p(strong("4. Input one or more gene sets")),
-      conditionalPanel(condition = "input.database == 'GO'", selectizeInput("goSets", label = "Search for gene sets within GO", choices = NULL, multiple = TRUE)),
+      conditionalPanel(condition = "input.database == 'GO'", selectizeInput("foo", label = "Search for gene sets within GO", choices = NULL, multiple = TRUE)),
       conditionalPanel(condition = "input.database == 'KEGG'",selectizeInput("keggSets", label = "Search for gene sets within KEGG", choices = keggsets, multiple = TRUE)),
       p("or"),
       fileInput("geneList", label = "Upload the gene list of interest"),
@@ -27,7 +27,8 @@ shinyUI(fluidPage(
       #tableOutput('countMatrix'),
       #tableOutput('designMatrix'),
       #tableOutput('fry'),
-      tableOutput("fryTable")
+      tableOutput("fryTable"),
+      tableOutput("nameOfChoice")
     )
   )
 ))

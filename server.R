@@ -8,10 +8,11 @@ library(GO.db)
 goterms <- Term(GOTERM)
 gosets <- as.vector(goterms)
 shinyServer(function(input,output,session) {
-  updateSelectizeInput(session, "goSets", choices = gosets, server = TRUE)
+  updateSelectizeInput(session, "foo", choices = as.vector(fooChoices), server = TRUE)
+  output$nameOfChoice = renderText(names(fooChoices[fooChoices==input$foo]))
   output$countMatrix <- renderTable({
     inFile <- input$counts
-    cat(file=stderr(), "drawing histogram with")
+    #cat(file=stderr(), "drawing histogram with")
     if (is.null(inFile)) return(NULL)
     read.table(inFile$name)
   })
@@ -24,7 +25,7 @@ shinyServer(function(input,output,session) {
   
   output$geneSetInput <- renderText({
     if (is.null(input$goSets)) return(NULL)
-    print(input$goSets)
+    print(paste(input$goSets))
   })
   
   output$fryTable <- renderTable({
