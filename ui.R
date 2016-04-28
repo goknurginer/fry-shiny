@@ -25,6 +25,8 @@ shinyUI(fluidPage(
         selectizeInput("keggSets", label = "Search for gene sets within KEGG",
           choices = keggsets, multiple = TRUE)),
       
+      checkboxInput("allGeneSets", label = "Select all gene sets"),
+
       p("or"),
       
       fileInput("geneList", label = "Upload the gene list of interest"),

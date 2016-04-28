@@ -5,7 +5,9 @@ shinyServer(function(input,output,session) {
   updateSelectizeInput(session, "goSets", choices = goTerms, server = TRUE)
   
   applyGS <- eventReactive(input$run, {
-    input$goSets
+    if(is.null(input$goSets) & !(input$allGeneSets)) return(NULL) 
+      else if (!input$allGeneSets & !is.null(input$goSets)) input$goSets
+      else goTerms
   })
   
   output$fryTable <- renderDataTable({
