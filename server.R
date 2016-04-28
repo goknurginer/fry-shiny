@@ -1,28 +1,20 @@
 # server
 options(shiny.maxRequestSize=100*1024^2) 
-source("160418-geneset-fry.R")
-source("160414lmEffects.R")
-library(limma)
-library(org.Hs.eg.db)
-library(GO.db)
-.matvec <- limma:::.matvec
 shinyServer(function(input,output,session) {
   
   updateSelectizeInput(session, "goSets", choices = goTerms, server = TRUE)
   
-  ntext <- eventReactive(input$run, {
+  applyGS <- eventReactive(input$run, {
     input$goSets
   })
   
   output$fryTable <- renderTable({
-      gene.sets <- as.list(GO)[ntext()]
-      gene.sets <- gene.sets[! sapply(gene.sets, is.null)]
-      # print(gene.sets)
-      # idx <- ids2indices(gene.sets, exprs.filt$genes$Entrez_Gene_ID)
-      cnt <- read.table(input$counts$name)
-      des <- read.table(input$design$name)
-      idx <- ids2indices(gene.sets, rownames(cnt))
-      fry( cnt, design =des, index = idx)
+    gene.sets <- as.list(GO)[applyGS()]
+    gene.sets <- gene.sets[! sapply(gene.sets, is.null)]
+    cnt <- read.table(input$counts$name)
+    des <- read.table(input$design$name)
+    idx <- ids2indices(gene.sets, rownames(cnt))
+    format(fry( cnt, design =des, index = idx, sort="directional"), scientific = TRUE, digits = 3)
   })
   
   output$geneSetInput = renderText({
