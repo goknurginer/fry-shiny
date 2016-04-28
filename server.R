@@ -8,14 +8,14 @@ shinyServer(function(input,output,session) {
     input$goSets
   })
   
-  output$fryTable <- renderTable({
+  output$fryTable <- renderDataTable({
     gene.sets <- as.list(GO)[applyGS()]
     gene.sets <- gene.sets[! sapply(gene.sets, is.null)]
     cnt <- read.table(input$counts$name)
     des <- read.table(input$design$name)
     idx <- ids2indices(gene.sets, rownames(cnt))
     format(fry( cnt, design =des, index = idx, sort="directional"), scientific = TRUE, digits = 3)
-  })
+  }, options = list(orderClasses = TRUE))
   
   output$geneSetInput = renderText({
     if (is.null(input$goSets)) return(NULL)

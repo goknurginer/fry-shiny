@@ -1,9 +1,5 @@
 # ui
 # runApp("../GST_Tool/", display.mode = "showcase")
-library(limma)
-library(org.Hs.eg.db)
-library(GO.db)
-.matvec <- limma:::.matvec
 keggsets <- paste("s", 1:100)
 shinyUI(fluidPage(
   
@@ -49,7 +45,7 @@ shinyUI(fluidPage(
       #tableOutput('designMatrix'),
       #tableOutput('fry'),
       verbatimTextOutput("geneSetInput"),
-      tableOutput("fryTable")
+      dataTableOutput('fryTable')
     )
   )
 ))
