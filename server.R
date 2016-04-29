@@ -4,15 +4,25 @@ shinyServer(function(input,output,session) {
   updateSelectizeInput(session, "goSets", choices = goTerms, server = TRUE)
   
   applyGS <- eventReactive(input$run, {
-    if(is.null(input$goSets) & !(input$allGeneSets)) return(NULL) 
+    if(input$database == 'GO') {
+      if(is.null(input$goSets) & !(input$allGeneSets)) return(NULL) 
       else if (!input$allGeneSets & !is.null(input$goSets)) input$goSets
       else goTerms
+    }
+    
+    if (input$database == 'KEGG') {
+      if(is.null(input$keggSets) & !(input$allGeneSets)) return(NULL) 
+      else if (!input$allGeneSets & !is.null(input$keggSets)) input$keggSets
+      else keggsets
+    }
+    
+    if (input$database == 'MsigDB') {
+      if(is.null(input$MsigSets) & !(input$allGeneSets)) return(NULL) 
+      else if (!input$allGeneSets & !is.null(input$MsigSets)) input$MsigSets
+      else msigsets
+    }
   })
-  output$sets <- reactive({
-    goSets
-  })
-  outputOptions(output, "sets", suspendWhenHidden=FALSE)  
-  
+
   output$fryTable <- renderDataTable({
     gene.sets <- as.list(GO)[applyGS()]
     gene.sets <- gene.sets[! sapply(gene.sets, is.null)]
