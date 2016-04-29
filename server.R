@@ -1,7 +1,6 @@
 # server
 options(shiny.maxRequestSize=100*1024^2) 
 shinyServer(function(input,output,session) {
-  
   updateSelectizeInput(session, "goSets", choices = goTerms, server = TRUE)
   
   applyGS <- eventReactive(input$run, {
@@ -9,6 +8,10 @@ shinyServer(function(input,output,session) {
       else if (!input$allGeneSets & !is.null(input$goSets)) input$goSets
       else goTerms
   })
+  output$sets <- reactive({
+    goSets
+  })
+  outputOptions(output, "sets", suspendWhenHidden=FALSE)  
   
   output$fryTable <- renderDataTable({
     gene.sets <- as.list(GO)[applyGS()]
@@ -16,8 +19,10 @@ shinyServer(function(input,output,session) {
     cnt <- read.table(input$counts$name)
     des <- read.table(input$design$name)
     idx <- ids2indices(gene.sets, rownames(cnt))
-    format(fry( cnt, design =des, index = idx, sort="directional"), scientific = TRUE, digits = 3)
-  }, options = list(orderClasses = TRUE))
+    fry <- fry(cnt, design =des, index = idx, sort="directional")
+    format(fry, scientific = TRUE, digits = 3)
+  }, 
+    options = list(orderClasses = TRUE))
   
   output$geneSetInput = renderText({
     if (is.null(input$goSets)) return(NULL)

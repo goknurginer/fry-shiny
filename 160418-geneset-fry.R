@@ -48,7 +48,7 @@ fry.default <- function(y,index=NULL,design=NULL,contrast=ncol(design),sort="dir
 				robust=Dots$robust,
 				winsor.tail.p=Dots$winsor.tail.p)
 			s2.robust <- sv$var.post
-			cat(sv$df.prior,"\n")
+			#cat(sv$df.prior,"\n")
 		}
 		if(standardize=="p2") {
 			s2 <- rowMeans(Effects[,-1,drop=FALSE]^2)
@@ -62,7 +62,7 @@ fry.default <- function(y,index=NULL,design=NULL,contrast=ncol(design),sort="dir
 				df.res.rob <- 0.92*df.residual
 				df.total <- df.res.rob + sv$var.prior
 				s2.robust <- (df.res.rob*s2.robust + sv$df.prior*sv$var.prior) / df.total
-				cat(sv$df.prior,"\n")
+				#cat(sv$df.prior,"\n")
 			}
 		}
 

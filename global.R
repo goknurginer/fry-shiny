@@ -8,3 +8,4 @@ goTerms <- c(names(x))
 names(goTerms) <- x
 goNames <- as.vector(goTerms)
 GO <- org.Hs.egGO2EG
+load("human_H_v5.rdata")
