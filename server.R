@@ -2,7 +2,7 @@
 options(shiny.maxRequestSize=100*1024^2) 
 shinyServer(function(input,output,session) {
   updateSelectizeInput(session, "goSets", choices = goTerms, server = TRUE)
-  
+
   applyGS <- eventReactive(input$run, {
     
     if(input$database == 'GO') {
@@ -16,11 +16,19 @@ shinyServer(function(input,output,session) {
       else if (!input$allGeneSets & !is.null(input$MsigSets)) input$MsigSets
       else msigsets
     }
+    
+    else {
+      if(is.null(input$keggSets) & !(input$allGeneSets)) return(NULL) 
+      else if (!input$allGeneSets & !is.null(input$keggSets)) input$keggSets
+      else keggsets
+    }
+    
   })
   
   output$fryTable <- renderDataTable({
     if(input$database == 'GO') gene.sets <- as.list(GO)[applyGS()]
     if(input$database == 'MsigDB') gene.sets <- Hs.H[applyGS()]
+    if(input$database == 'KEGG') gene.sets <- KEGG[applyGS()]
     gene.sets <- gene.sets[! sapply(gene.sets, is.null)]
     cnt <- read.table(input$counts$name)
     des <- read.table(input$design$name)

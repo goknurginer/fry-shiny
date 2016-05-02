@@ -1,7 +1,7 @@
 # ui
 # runApp("../GST_Tool/", display.mode = "showcase")
 # setwd("C:/Users/giner.g.WEHI/Dropbox/Rshiny/GST_Tool")
-keggsets <- paste("s", 1:100)
+keggsets <- names(KEGG)
 msigsets <- names(Hs.H)
 shinyUI(fluidPage(
   
