@@ -27,15 +27,19 @@ shinyServer(function(input,output,session) {
   })
   
   output$fryTable <- renderDataTable({
-    if(input$database == 'GO') gene.sets <- as.list(GO)[applyGS()]
+    if(input$database == 'GO') {
+      gene.sets <- as.list(GO)[applyGS()]
+      gene.sets <- gene.sets[! sapply(gene.sets, is.null)]
+      print(gene.sets)
+      PathwayName <- names(gosets[gosets %in% names(gene.sets)])
+    }
     if(input$database == 'MsigDB') gene.sets <- Hs.H[applyGS()]
     if(input$database == 'KEGG') gene.sets <- KEGG[applyGS()]
-    gene.sets <- gene.sets[! sapply(gene.sets, is.null)]
     cnt <- read.table(input$counts$name)
     des <- read.table(input$design$name)
     idx <- ids2indices(gene.sets, rownames(cnt))
     fry <- fry(cnt, design =des, index = idx, sort="directional")
-    fry.table <- data.frame(PathwayID = rownames(fry), fry) 
+    fry.table <- data.frame(PathwayID = rownames(fry), PathwayName = PathwayName, fry) 
     format(fry.table, scientific = TRUE, digits = 3)
   }, 
     options = list(orderClasses = TRUE))

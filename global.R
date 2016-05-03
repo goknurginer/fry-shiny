@@ -6,9 +6,9 @@ library(limma)
 library(org.Hs.eg.db)
 library(GO.db)
 x <- Term(GOTERM)
+# Swap names and values of x
 gosets <- c(names(x))
 names(gosets) <- x
-goNames <- as.vector(gosets)
 GO <- org.Hs.egGO2EG
 
 # MsigDB
