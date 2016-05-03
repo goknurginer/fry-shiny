@@ -23,9 +23,11 @@ msigsets <- names(Hs.H)
 
 # KEGG DB
 definitions2pathways <- getKEGGPathwayNames(species.KEGG = "hsa", remove=TRUE)
+keggsets <- definitions2pathways$PathwayID
+names(keggsets) <- c(definitions2pathways$Description)
 genes2pathways <- getGeneKEGGLinks(species.KEGG = "hsa", convert = FALSE)
 ll <- split(genes2pathways, genes2pathways$PathwayID)
 ll <- lapply(ll, function(x) x[names(x) == "GeneID"])
 KEGG <- lapply(ll, function(x) as.character(unlist(x)))
-keggsets <- names(KEGG)
+
 
