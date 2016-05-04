@@ -8,9 +8,7 @@ shinyUI(fluidPage(
   
   sidebarLayout(position = "left",
     sidebarPanel(h3("Please set up your test"),
-      numericInput("obs", "enter", value = 10, min =1, max = 20),
-      actionButton("goButton", "Go!"),
-      
+
       fileInput("counts", label = "1. Upload the expression data matrix"),
       
       fileInput("design", label = "2. Upload the design matrix"),
@@ -51,13 +49,9 @@ shinyUI(fluidPage(
         condition = "input.allGeneSets",
         sliderInput("fdr", label = h5("FDR cutoff"),
           min = 0, max = 0.1, value = "0.05", step = 0.01))
-      # selectInput("fdr", label = h5("FDR cutoff"), choices = list("0.01", "0.05", "0.1"), selected = "0.1")
     ),
     
     mainPanel(
-      #tableOutput('countMatrix'),
-      #tableOutput('designMatrix'),
-      plotOutput('distPlot'),
       verbatimTextOutput("geneSetInput"),
       dataTableOutput('fryTable')
     )
