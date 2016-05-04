@@ -27,14 +27,16 @@ shinyServer(function(input,output,session) {
   })
   
   output$fryTable <- renderDataTable({
-    if(input$database == 'GO') {
+    input$run
+    database <- isolate(input$database)
+    if(database == 'GO') {
       gene.sets <- as.list(GO)[applyGS()]
       gene.sets <- gene.sets[! sapply(gene.sets, is.null)]
       print(gene.sets)
       PathwayName <- names(gosets[gosets %in% names(gene.sets)])
       print(PathwayName)
     }
-    else if(input$database == 'KEGG') {
+    else if(database == 'KEGG') {
       gene.sets <- KEGG[applyGS()]
       gene.sets <- gene.sets[! sapply(gene.sets, is.null)]
       print(gene.sets)
@@ -78,7 +80,7 @@ shinyServer(function(input,output,session) {
     input$goButton
     
     # Use isolate() to avoid dependency on input$obs
-    #dist <- isolate(rnorm(input$obs))
+    dist <- isolate(rnorm(input$obs))
     hist(rnorm(input$obs))
   })
   
