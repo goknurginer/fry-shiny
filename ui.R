@@ -8,12 +8,14 @@ shinyUI(fluidPage(
   
   sidebarLayout(position = "left",
     sidebarPanel(h3("Please set up your test"),
+      numericInput("obs", "enter", value = 10, min =1, max = 20),
+      actionButton("goButton", "Go!"),
       
       fileInput("counts", label = "1. Upload the expression data matrix"),
       
       fileInput("design", label = "2. Upload the design matrix"),
       
-      radioButtons("database", label = "3. Select a database",
+      selectInput("database", label = "3. Select a database",
         choices = list("GO", "KEGG", "MsigDB")),
       
       p(strong("4. Input one or more gene sets")),
@@ -55,7 +57,7 @@ shinyUI(fluidPage(
     mainPanel(
       #tableOutput('countMatrix'),
       #tableOutput('designMatrix'),
-      #tableOutput('fry'),
+      plotOutput('distPlot'),
       verbatimTextOutput("geneSetInput"),
       dataTableOutput('fryTable')
     )
