@@ -63,22 +63,4 @@ shinyServer(function(input,output,session) {
     format(fry.table, scientific = TRUE, digits = 3)
   }, options = list(orderClasses = TRUE))
   
-  output$geneSetInput = renderText({
-    if (is.null(input$goSets)) return(NULL)
-    # names(gosets[gosets==input$goSets])
-    print(input$goSets)
-  })
-  
-  output$countMatrix <- renderTable({
-    inFile <- input$counts
-    if (is.null(inFile)) return(NULL)
-    read.table(inFile$name)
-  })
-  
-  output$designMatrix <- renderTable({
-    inFile <- input$design
-    if (is.null(inFile)) return(NULL)
-    read.table(inFile$name)
-  })
-  
 })

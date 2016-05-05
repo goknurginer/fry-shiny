@@ -52,7 +52,6 @@ shinyUI(fluidPage(
     ),
     
     mainPanel(
-      verbatimTextOutput("geneSetInput"),
       dataTableOutput('fryTable')
     )
   )

@@ -1,7 +1,6 @@
 .matvec <- limma:::.matvec
 library(limma)
 
-
 # GO DB
 library(org.Hs.eg.db)
 library(GO.db)
