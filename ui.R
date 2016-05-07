@@ -19,36 +19,46 @@ shinyUI(fluidPage(
       p(strong("4. Input one or more gene sets")),
       
       conditionalPanel(condition = "input.database == 'GO'", 
-        selectizeInput("goSets", label = "Search for gene sets within GO", 
+        selectizeInput("goSets", label = h5("Search for gene sets within GO"), 
           choices = NULL, multiple = TRUE)),
       
       conditionalPanel(condition = "input.database == 'KEGG'",
-        selectizeInput("keggSets", label = "Search for gene sets within KEGG",
+        selectizeInput("keggSets", label = h5("Search for gene sets within KEGG"),
           choices = keggsets, multiple = TRUE)),
       
       conditionalPanel(condition = "input.database == 'MsigDB'",
-        selectizeInput("MsigSets", label = "Search for gene sets within MsigDB",
+        selectizeInput("MsigSets", label = h5("Search for gene sets within MsigDB"),
           choices = msigsets, multiple = TRUE)),
 
       checkboxInput("allGeneSets", label = "Select all gene sets"),
       
       p("or"),
       
-      fileInput("geneList", label = "Upload the gene list of interest"),
+      fileInput("geneList", label = h5("Upload the gene list of interest")),
       
-      actionButton("run", label = strong("Apply gene set test")),
+      actionButton("run", label = h4(strong("Apply gene set test"))),
       
       br(),
-      
-      p(strong("5. Decide default cutoffs")),
-      
-      sliderInput("pvalue", label = h5("P-value cutoff"),
-        min = 0, max = 0.1, value = "0.05", step = 0.01),
+      br(),
       
       conditionalPanel(
-        condition = "input.allGeneSets",
-        sliderInput("fdr", label = h5("FDR cutoff"),
-          min = 0, max = 0.1, value = "0.05", step = 0.01))
+        condition = "input.run",
+        
+        sliderInput("pvalue", label = h5(strong("Filter by P-value")),
+          min = 0, max = 0.1, value = "0.05", step = 0.01),
+        
+        conditionalPanel(
+          condition = "input.allGeneSets",
+          sliderInput("fdr", label = h5(strong("Filter by FDR")),
+            min = 0, max = 0.1, value = "0.05", step = 0.01)),
+        
+        p(h5(strong("Save the table"))),
+        
+        radioButtons("filetype", h5("Choose file type:"), 
+          choices = c("csv", "txt")), 
+        
+        downloadButton('downloadData', 'Download table')
+      )
     ),
     
     mainPanel(
