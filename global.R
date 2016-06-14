@@ -1,4 +1,3 @@
-.matvec <- limma:::.matvec
 library(limma)
 
 # GO DB
