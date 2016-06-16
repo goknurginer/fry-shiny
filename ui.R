@@ -43,13 +43,6 @@ shinyUI(fluidPage(
 
       conditionalPanel(
         condition = "input.run",
-        sliderInput("pvalue", label = h5(strong("Filter by P-value")),
-          min = 0, max = 0.1, value = "0.05", step = 0.01),
-
-        conditionalPanel(
-          condition = "input.allGeneSets",
-          sliderInput("fdr", label = h5(strong("Filter by FDR")),
-            min = 0, max = 0.1, value = "0.05", step = 0.01)),
 
         p(h5(strong("Save the table"))),
 
