@@ -41,17 +41,26 @@ shinyUI(fluidPage(
       br(),
       br(),
 
-      conditionalPanel(
-        condition = "input.run",
-
-        p(h5(strong("Save the table"))),
-
-        radioButtons("filetype", h5("Choose file type:"),
-          choices = c("csv", "txt")),
-
-        downloadButton('downloadData', 'Download table')
+      conditionalPanel(condition = "input.run",
+        p(strong("5. Save the results")),
+        fluidRow(
+          column(5, wellPanel(
+            radioButtons('saving_type', h5("Select"), 
+              choices = c("All", "Filtered", "Selected")),
+            textInput('filename', label = h5("Name the file"))
+            # p(downloadButton('pval_dl', 'Download'))
+          )
+          ),
+          column(5, wellPanel(
+            radioButtons("filetype", h5("Choose file type"),
+              choices = c("csv", "txt", "xlsx")),
+            downloadButton('downloadData', 'Download table')
+          )
+          
+        )) 
       )
-    ),
+      
+      ),
 
     mainPanel(
       dataTableOutput('fryTable')
