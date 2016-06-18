@@ -75,22 +75,42 @@ shinyServer(function(input,output,session) {
   }, options = list(orderClasses = TRUE), filter = 'top'
   )
 
-  output$downloadData <- downloadHandler(
-
-    # This function returns a string which tells the client
-    # browser what name to use when saving the file.
-    filename = function() {
-      paste(input$database, input$filetype, sep = ".")
-    },
-
-    # This function should write data to a file given to it by
-    # the argument 'file'.
-    content = function(file) {
-      sep <- switch(input$filetype, "csv" = ",", "txt" = "\t")
-
-      # Write to a file specified by the 'file' argument
-      write.table(format(databaseInput(), scientific = TRUE, digits = 3),
-                  file, sep = sep, row.names = FALSE)
+output$downloadData <- downloadHandler(
+  filename = function() {
+    paste(input$filename,"-", Sys.Date(), input$filetype, sep = ".")
+  },
+  content = function(file) 
+  {
+    if(input$saving_type == "All") {
+      if (input$filetype == "csv") write.csv(format(databaseInput(), scientific = TRUE, digits = 3), file)
+        else if (input$filetype == "txt") write.table(format(databaseInput(), scientific = TRUE, digits = 3), file)
+          else write.xlsx(format(databaseInput(), scientific = TRUE, digits = 3), file)
     }
-  )
-    })
+    else if (input$saving_type == "Filtered") {
+        if (input$filetype == "csv") write.csv(format(databaseInput(), scientific = TRUE, digits = 3), file)
+          else if (input$filetype == "txt") write.table(format(databaseInput(), scientific = TRUE, digits = 3), file)
+            else write.xlsx(format(databaseInput(), scientific = TRUE, digits = 3), file)
+      # s = input$pvalTable_rows_current
+      # write.csv(pval()[s, , drop = FALSE], file)
+    }
+    else {
+        if (input$filetype == "csv") write.csv(format(databaseInput(), scientific = TRUE, digits = 3), file)
+          else if (input$filetype == "txt") write.table(format(databaseInput(), scientific = TRUE, digits = 3), file)
+            else write.xlsx(format(databaseInput(), scientific = TRUE, digits = 3), file)
+      # r = input$pvalTable_rows_selected
+      # write.csv(pval()[r, , drop = FALSE], file)
+    }
+  })
+})
+
+
+
+
+
+
+
+
+
+
+
+

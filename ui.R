@@ -44,20 +44,20 @@ shinyUI(fluidPage(
       conditionalPanel(condition = "input.run",
         p(strong("5. Save the results")),
         fluidRow(
-          column(5, wellPanel(
+          column(6, wellPanel(
             radioButtons('saving_type', h5("Select"), 
               choices = c("All", "Filtered", "Selected")),
             textInput('filename', label = h5("Name the file"))
             # p(downloadButton('pval_dl', 'Download'))
           )
           ),
-          column(5, wellPanel(
+          column(6, wellPanel(
             radioButtons("filetype", h5("Choose file type"),
               choices = c("csv", "txt", "xlsx")),
             downloadButton('downloadData', 'Download table')
           )
           
-        )) 
+        ))
       )
       
       ),
