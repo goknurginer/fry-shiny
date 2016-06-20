@@ -71,7 +71,10 @@ shinyServer(function(input,output,session) {
   })
   
   output$fryTable <- DT::renderDataTable({
-    format(databaseInput(), scientific = TRUE, digits = 3)
+    table <- databaseInput()
+    rownames(table) <- NULL
+    table
+    # format(table, scientific = TRUE, digits = 3)
   }, options = list(orderClasses = TRUE), filter = 'top'
   )
 
