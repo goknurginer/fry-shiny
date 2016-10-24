@@ -5,7 +5,7 @@ One of the most flexible and powerful gene set tests is the ROAST method in the 
 
 ROAST works well for individual expression signatures, but has limitations when applied to large collections of gene sets, such as the Broad Institute's Molecular Signature Database with over 8000 gene sets. In particular, the p-value resolution is limited by the number of rotations that are done for each set. This makes it impossible to obtain very small p-values and hence to distinguish the top ranking pathways from a large collection. As with permutation tests, the p-values for each set may vary from run to run.
 
-This talk presents Fry, a very fast approximation to the complete ROAST method. Fry approximates the limiting p-value that would be obtained from performing a very large number of rotations with ROAST. Fry preserves most of the advantages of ROAST, but also provides high resolution exact p-values very quickly. In particular, it is able to distinguish the most significant sets in large collections and to yield statistically significant results after adjustment for multiple testing. This makes it an ideal tool for large-scale pathway analysis.
+Fry is a very fast approximation to the complete ROAST method. Fry approximates the limiting p-value that would be obtained from performing a very large number of rotations with ROAST. Fry preserves most of the advantages of ROAST, but also provides high resolution exact p-values very quickly. In particular, it is able to distinguish the most significant sets in large collections and to yield statistically significant results after adjustment for multiple testing. This makes it an ideal tool for large-scale pathway analysis.
 `fry()` and `roast()` `limma::lmEffects()`
 =======
 # fry-web-app

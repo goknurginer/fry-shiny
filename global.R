@@ -1,5 +1,6 @@
-.matvec <- limma:::.matvec
 library(limma)
+library(DT)
+#library(xlsx)
 
 # GO DB
 library(org.Hs.eg.db)

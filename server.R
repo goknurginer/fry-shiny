@@ -69,13 +69,10 @@ shinyServer(function(input,output,session) {
 
         else fry.table <- data.frame(PathwayID = PathwayID, fry)
   })
-
-  output$fryTable <- renderDataTable({
-
+  
+  output$fryTable <- DT::renderDataTable({
     format(databaseInput(), scientific = TRUE, digits = 3)
-
-  },
-    options = list(orderClasses = TRUE)
+  }, options = list(orderClasses = TRUE), filter = 'top'
   )
 
   output$downloadData <- downloadHandler(
@@ -96,4 +93,4 @@ shinyServer(function(input,output,session) {
                   file, sep = sep, row.names = FALSE)
     }
   )
-})
+    })
