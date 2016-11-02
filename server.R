@@ -48,8 +48,14 @@ shinyServer(function(input,output,session) {
     
     else gene.sets <- Hs.H[applyGS()]
     
-    cnt <- read.table(input$counts$name)
-    des <- read.table(input$design$name)
+    if (input$example) {
+      cnt <- read.table("dgelist.txt")
+      des <- read.table("design.txt")
+    }
+    else{
+      cnt <- read.table(input$counts$name)
+      des <- read.table(input$design$name) 
+    }
     
     # is the following step necessary or null sets have already been discarded
     #PathwayName <- names(gosets[gosets %in% names(gene.sets)])
@@ -90,16 +96,24 @@ shinyServer(function(input,output,session) {
     # This function returns a string which tells the client
     # browser what name to use when saving the file.
     filename = function() {
-      paste(input$database, input$filetype, sep = ".")
+      paste0(Sys.Date(), "-", input$database, "-", input$saving_type, input$filetype)
     },
     
     # This function should write data to a file given to it by
     # the argument 'file'.
     content = function(file) {
-      sep <- switch(input$filetype, "csv" = ",", "txt" = "\t")
+      sep <- switch(input$filetype, ".csv" = ",", ".txt" = "\t")
+     
+      if (input$saving_type == "Filtered")
+        s = input$fryTable_rows_all
+      else if (input$saving_type == "Selected") 
+        s = input$fryTable_rows_selected
       
       # Write to a file specified by the 'file' argument
+      if (input$saving_type == "All") 
       write.table(format(databaseInput(), scientific = TRUE, digits = 3),
+        file, sep = sep, row.names = FALSE)
+      else  write.table(format(databaseInput()[s, , drop = FALSE], scientific = TRUE, digits = 3),
         file, sep = sep, row.names = FALSE)
     }
   )

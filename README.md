@@ -10,12 +10,12 @@ Fry is a very fast approximation to the complete ROAST method. Fry approximates 
 # fry-web-app
 >>>>>>> 2e49a80fa9a6881bd207f9115f447fb1c077d95a
 
-Annotation Updtaes Information
+Annotation Update Information
 MsigDB 
 human_c5_v5p2.rdata and human_H_v5p2.rdata are downloaded from http://bioinf.wehi.edu.au/software/MSigDB/ which was last modified on 11 October 2016
 
 KEGG is obtained useing library(limma) functions. limma is regulary updated. 
 
-Reactome is last modified on 24 October 2016. ReactomePathways.gmt file was donloaded from http://software.broadinstitute.org/gsea/msigdb/collections.jsp CP:REACTOME: Reactome gene sets entrez gene ids
+Reactome is last modified on 31 October 2016. ReactomePathways.gmt file was downloaded from http://software.broadinstitute.org/gsea/msigdb/collections.jsp CP:REACTOME: Reactome gene sets entrez gene ids
 
 org.Hs.eg.db and GO.db are last updated on 27 October 2016. Current version is 3.4.0

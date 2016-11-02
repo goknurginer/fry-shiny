@@ -9,6 +9,7 @@ shinyUI(fluidPage(
   sidebarLayout(position = "left",
     sidebarPanel(h3("Please set up your test"),
       
+      checkboxInput("example", label = "Use example dataset and continue on step 3"),
       fileInput("counts", label = "1. Upload the expression data matrix"),
       
       fileInput("design", label = "2. Upload the design matrix"),
@@ -49,15 +50,15 @@ shinyUI(fluidPage(
         p(strong("5. Save the results")),
         fluidRow(
           column(5, wellPanel(
-            radioButtons('saving_type', h5("Select"), 
-              choices = c("All", "Filtered", "Selected")),
+            radioButtons('saving_type', h5("Save pathways"), 
+              choices = c("All", "Selected", "Filtered")),
             textInput('filename', label = h5("Name the file"))
             # p(downloadButton('pval_dl', 'Download'))
           )
           ),
           column(5, wellPanel(
             radioButtons("filetype", h5("Choose file type"),
-              choices = c("csv", "txt", "xlsx")),
+              choices = c(".csv", ".txt", ".xlsx")),
             downloadButton('downloadData', 'Download table')
           )
             
