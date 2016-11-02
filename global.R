@@ -21,8 +21,8 @@ msigAll_cancer <- names(Hs.c5)
 
 # KEGG DB
 definitions2pathways <- getKEGGPathwayNames(species.KEGG = "hsa", remove=TRUE)
-keggsets <- definitions2pathways$PathwayID
-names(keggsets) <- c(definitions2pathways$Description)
+keggAll <- definitions2pathways$PathwayID
+names(keggAll) <- c(definitions2pathways$Description)
 genes2pathways <- getGeneKEGGLinks(species.KEGG = "hsa", convert = FALSE)
 ll <- split(genes2pathways, genes2pathways$PathwayID)
 ll <- lapply(ll, function(x) x[names(x) == "GeneID"])

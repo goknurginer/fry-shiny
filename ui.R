@@ -25,7 +25,7 @@ shinyUI(fluidPage(
       
       conditionalPanel(condition = "input.database == 'KEGG'",
         selectizeInput("keggSelected", label = h5("Search for gene sets within KEGG"),
-          choices = keggsets, multiple = TRUE)),
+          choices = keggAll, multiple = TRUE)),
       
       conditionalPanel(condition = "input.database == 'MSig_HALLMARK'",
         selectizeInput("MsigSets", label = h5("Search for gene sets within MSig_HALLMARK"),

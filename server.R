@@ -25,7 +25,7 @@ shinyServer(function(input,output,session) {
     
     else {
       if (!input$allGeneSets & !is.null(input$keggSelected)) input$keggSelected
-      else if (input$allGeneSets) keggsets
+      else if (input$allGeneSets) keggAll
     }
   })
   
@@ -74,8 +74,8 @@ shinyServer(function(input,output,session) {
         PathwayName = PathwayName, fry)
     }
     
-    else if(database == 'KEGG') { m <- match(PathwayID, keggsets)
-    PathwayName <- names(keggsets[m])
+    else if(database == 'KEGG') { m <- match(PathwayID, keggAll)
+    PathwayName <- names(keggAll[m])
     fry.table <- data.frame(PathwayID = PathwayID,
       PathwayName = PathwayName, fry)
     }
