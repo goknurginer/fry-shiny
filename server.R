@@ -1,30 +1,30 @@
 # server
 options(shiny.maxRequestSize=100*1024^2)
-msigsets <- names(Hs.H)
+msigAll_hall <- names(Hs.H)
 
 shinyServer(function(input,output,session) {
   
-  updateSelectizeInput(session, "goSets", choices = gosets, server = TRUE)
+  updateSelectizeInput(session, "goSelected", choices = goAll, server = TRUE)
   
   applyGS <- eventReactive(input$run, {
     
     if(input$database == 'GO') {
-      if (!input$allGeneSets & !is.null(input$goSets)) input$goSets
-      else if (input$allGeneSets) gosets
+      if (!input$allGeneSets & !is.null(input$goSelected)) input$goSelected
+      else if (input$allGeneSets) goAll
     }
     
-    else if (input$database == 'MsigDB') {
+    else if (input$database == 'MSig_HALLMARK') {
       if (!input$allGeneSets & !is.null(input$MsigSets)) input$MsigSets
-      else if (input$allGeneSets) msigsets
+      else if (input$allGeneSets) msigAll_hall
     }
     
     else if (input$database == 'REACTOME') {
-      if (!input$allGeneSets & !is.null(input$reactomeSets)) input$reactomeSets
-      else if (input$allGeneSets) reactomesets
+      if (!input$allGeneSets & !is.null(input$reactomeSelected)) input$reactomeSelected
+      else if (input$allGeneSets) reactomeAll
     }
     
     else {
-      if (!input$allGeneSets & !is.null(input$keggSets)) input$keggSets
+      if (!input$allGeneSets & !is.null(input$keggSelected)) input$keggSelected
       else if (input$allGeneSets) keggsets
     }
   })
@@ -58,7 +58,7 @@ shinyServer(function(input,output,session) {
     }
     
     # is the following step necessary or null sets have already been discarded
-    #PathwayName <- names(gosets[gosets %in% names(gene.sets)])
+    #PathwayName <- names(goAll[goAll %in% names(gene.sets)])
     #gene.sets <- gene.sets[!sapply(gene.sets, is.null)]
     
     idx <- ids2indices(gene.sets, rownames(cnt))
@@ -68,8 +68,8 @@ shinyServer(function(input,output,session) {
     PathwayID <- rownames(fry)
     
     if(database == 'GO') {
-      m <- match(PathwayID, gosets)
-      PathwayName <- names(gosets[m])
+      m <- match(PathwayID, goAll)
+      PathwayName <- names(goAll[m])
       fry.table <- data.frame(PathwayID = PathwayID,
         PathwayName = PathwayName, fry)
     }

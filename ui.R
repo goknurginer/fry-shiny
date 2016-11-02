@@ -1,7 +1,7 @@
 # ui
 # runApp("../GST_Tool/", display.mode = "showcase")
 # setwd("C:/Users/giner.g.WEHI/Dropbox/Rshiny/GST_Tool")
-msigsets <- names(Hs.H)
+msigAll_hall <- names(Hs.H)
 shinyUI(fluidPage(
   
   titlePanel(h1("Fry: Fast Interactive Biological Pathway Miner")),
@@ -15,25 +15,25 @@ shinyUI(fluidPage(
       fileInput("design", label = "2. Upload the design matrix"),
       
       selectInput("database", label = "3. Select a database",
-        choices = list("GO", "KEGG", "MsigDB", "REACTOME")),
+        choices = list("GO", "KEGG", "MSig_HALLMARK", "REACTOME")),
       
       p(strong("4. Input one or more gene sets")),
       
       conditionalPanel(condition = "input.database == 'GO'",
-        selectizeInput("goSets", label = h5("Search for gene sets within GO"),
+        selectizeInput("goSelected", label = h5("Search for gene sets within GO"),
           choices = NULL, multiple = TRUE)),
       
       conditionalPanel(condition = "input.database == 'KEGG'",
-        selectizeInput("keggSets", label = h5("Search for gene sets within KEGG"),
+        selectizeInput("keggSelected", label = h5("Search for gene sets within KEGG"),
           choices = keggsets, multiple = TRUE)),
       
-      conditionalPanel(condition = "input.database == 'MsigDB'",
-        selectizeInput("MsigSets", label = h5("Search for gene sets within MsigDB"),
-          choices = msigsets, multiple = TRUE)),
+      conditionalPanel(condition = "input.database == 'MSig_HALLMARK'",
+        selectizeInput("MsigSets", label = h5("Search for gene sets within MSig_HALLMARK"),
+          choices = msigAll_hall, multiple = TRUE)),
       
       conditionalPanel(condition = "input.database == 'REACTOME'",
-        selectizeInput("reactomeSets", label = h5("Search for gene sets within REACTOME"),
-          choices = reactomesets, multiple = TRUE)),
+        selectizeInput("reactomeSelected", label = h5("Search for gene sets within REACTOME"),
+          choices = reactomeAll, multiple = TRUE)),
       
       checkboxInput("allGeneSets", label = "Select all gene sets"),
       
