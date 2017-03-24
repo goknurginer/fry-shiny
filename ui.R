@@ -32,9 +32,9 @@ shinyUI(fluidPage(
 
       checkboxInput("allGeneSets", label = "Select all gene sets"),
 
-      p("or"),
-
-      fileInput("geneList", label = h5("Upload the gene list of interest")),
+      # p("or"),
+      # 
+      # fileInput("geneList", label = h5("Upload the gene list of interest")),
 
       actionButton("run", label = h4(strong("Apply gene set test"))),
 
