@@ -12,12 +12,12 @@ names(goAll) <- x
 GO <- org.Hs.egGO2EG
 
 # MsigDB HALLMARK - Hs.H object
-load("../../Google Drive/Projects/annotationdatabases/human_H_v5p2.rdata")
+load("../../Google Drive/Files/annotationdatabases/human_H_v5p2.rdata")
 Hs.H <- Hs.H
 msigAll_hall <- names(Hs.H)
 
 # MsigDB HALLMARK - Hs.c5 object
-load("../../Google Drive/Projects/annotationdatabases/human_c5_v5p2.rdata")
+load("../../Google Drive/Files/annotationdatabases/human_c5_v5p2.rdata")
 Hs.c5 <- Hs.c5
 msigAll_cancer <- names(Hs.c5)
 
@@ -30,9 +30,12 @@ ll <- split(genes2pathways, genes2pathways$PathwayID)
 ll <- lapply(ll, function(x) x[names(x) == "GeneID"])
 KEGG <- lapply(ll, function(x) as.character(unlist(x)))
 
+# keggAll <- NULL
+# KEGG <- NULL
+
 # REACTOME DB
 library("reactome.db")
-file <- "../../Google Drive/Projects/annotationdatabases/ReactomePathways.gmt"
+file <- "../../Google Drive/Files/annotationdatabases/ReactomePathways.gmt"
 REACTOME <- readLines(file)
 REACTOME <- strsplit(REACTOME, split = "\t")
 pathways <- lapply(REACTOME, function(x) x[1])
