@@ -49,8 +49,8 @@ shinyServer(function(input,output,session) {
     else gene.sets <- Hs.H[applyGS()]
     
     if (input$example) {
-      cnt <- read.table("dgelist.txt")
-      des <- read.table("design.txt")
+      cnt <- read.table("../../Google Drive/Files/datasets/dgelist.txt")
+      des <- read.table("../../Google Drive/Files/datasets/design.txt")
     }
     else{
       cnt <- read.table(input$counts$name)

@@ -2,13 +2,3 @@
 .Rhistory
 .RData
 .Ruserdata
-dgelist.txt
-design.txt
-DGEList.RData
-DGEListFilteredNormalized.RData
-fitTreatHER2_1_2.RData
-fitBRCA1.RData
-fitER.RData
-fitHER2.RData
-fitTreatBRCA1_1_2.RData
-fitTreatER_1_2.RData
